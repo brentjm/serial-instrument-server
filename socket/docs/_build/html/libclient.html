@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>libclient module &#8212; serial-instrument-server 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="libserver module" href="libserver.html" />
+    <link rel="prev" title="instruments package" href="instruments.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-libclient">
+<span id="libclient-module"></span><h1>libclient module<a class="headerlink" href="#module-libclient" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="libclient.Message">
+<em class="property">class </em><code class="sig-prename descclassname">libclient.</code><code class="sig-name descname">Message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">selector</span></em>, <em class="sig-param"><span class="n">sock</span></em>, <em class="sig-param"><span class="n">addr</span></em>, <em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libclient.html#Message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libclient.Message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="libclient.Message.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libclient.html#Message.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libclient.Message.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libclient.Message.process_events">
+<code class="sig-name descname">process_events</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mask</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libclient.html#Message.process_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libclient.Message.process_events" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libclient.Message.process_jsonheader">
+<code class="sig-name descname">process_jsonheader</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libclient.html#Message.process_jsonheader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libclient.Message.process_jsonheader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libclient.Message.process_protoheader">
+<code class="sig-name descname">process_protoheader</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libclient.html#Message.process_protoheader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libclient.Message.process_protoheader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libclient.Message.process_response">
+<code class="sig-name descname">process_response</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libclient.html#Message.process_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libclient.Message.process_response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libclient.Message.queue_request">
+<code class="sig-name descname">queue_request</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libclient.html#Message.queue_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libclient.Message.queue_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libclient.Message.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libclient.html#Message.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libclient.Message.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libclient.Message.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libclient.html#Message.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libclient.Message.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">serial-instrument-server</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">socket</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="instruments.html">instruments package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">libclient module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libserver.html">libserver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket_client.html">socket_client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket_server.html">socket_server module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">socket</a><ul>
+      <li>Previous: <a href="instruments.html" title="previous chapter">instruments package</a></li>
+      <li>Next: <a href="libserver.html" title="next chapter">libserver module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Brent J Maranzano.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/libclient.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
