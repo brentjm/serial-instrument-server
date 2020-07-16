@@ -14,36 +14,24 @@ import socket
 import selectors
 import traceback
 import argparse
-import logging
-import logging.config
-import yaml
-import coloredlogs
-from pdb import set_trace
+from instruments.bronkhorst import Bronkhorst
 
 import libserver
-
-logger = logging.getLogger(__name__)
-
-def setup_logger(config_file="./logger_conf.yml"):
-	try:
-		with open(config_file, 'rt') as file_obj:
-			config = yaml.safe_load(file_obj.read())
-			logging.config.dictConfig(config)
-			coloredlogs.install()
-	except Exception as e:
-		print(e)
-		logging.basicConfig(level=default_level)
-		coloredlogs.install(level=default_level)
-
+from pdb import set_trace
 
 class SocketServer(object):
-    """Socket server.
+    """Socket server using selectors to accept incoming client messages. Upon
+    receiving a client connection, creates a message handler (class Message
+    from libserver), which it provides the selector and socket information
+    (connection and address) for processing further events.
+
     Based off of code from:
     https://github.com/realpython/materials/blob/master/python-sockets-tutorial/libclient.py
     https://realpython.com/python-sockets/
     """
     def __init__(self, host, port):
         self._lsock, self._sel = self._setup_socket(host, port)
+        self.instrument = Bronkhorst()
         self.run()
 
     def _setup_socket(self, host, port):
@@ -65,13 +53,16 @@ class SocketServer(object):
         conn, addr = sock.accept()  # Should be ready to read
         print("accepted connection from", addr)
         conn.setblocking(False)
-        message = libserver.Message(self._sel, conn, addr)
+        message = libserver.Message(self._sel, conn, addr, self.instrument)
         self._sel.register(conn, selectors.EVENT_READ, data=message)
 
     def run(self):
         try:
             while True:
+                print("waiting for event")
                 events = self._sel.select(timeout=None)
+                print("received connection")
+                set_trace()
                 for key, mask in events:
                     if key.data is None:
                         self._accept_wrapper(key.fileobj)
@@ -91,7 +82,6 @@ class SocketServer(object):
             self._sel.close()
 
 if __name__ == "__main__":
-    setup_logger()
     parser = argparse.ArgumentParser(description="Start a socker server")
     parser.add_argument(
         "--host",

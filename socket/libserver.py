@@ -4,7 +4,6 @@ import json
 import io
 import struct
 from pdb import set_trace
-from instruments.bronkhorst import Bronkhorst
 
 request_search = {
     "morpheus": "Follow the white rabbit. \U0001f430",
@@ -14,7 +13,22 @@ request_search = {
 
 
 class Message:
-    def __init__(self, selector, sock, addr):
+    """Accepts incoming messages from socket clients, parses them, and then
+    sends the requested instrument command to the underlying instrument. Thus,
+    providing a unified ethernet interface to all equipment. The message format
+    should follow the form:
+        -   Fixed length header (2 bytes, big-endian) that defines the length of
+            the following JSON header
+        -   Variable JSON header (UTF-8 encoded) that defines the content body:
+                - Type
+                - Encoding
+                - Length
+        -   Variable length content (specified by the JSON header).
+        (see https://realpython.com/python-sockets/#application-protocol-header)
+
+    Note that the class attribute "instrument" must point to the connected instrument.
+    """
+    def __init__(self, selector, sock, addr, instrument):
         self.selector = selector
         self.sock = sock
         self.addr = addr
@@ -24,7 +38,7 @@ class Message:
         self.jsonheader = None
         self.request = None
         self.response_created = False
-        self.instrument = Bronkhorst()
+        self.instrument = instrument
 
     def _set_selector_events_mask(self, mode):
         """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
@@ -92,6 +106,8 @@ class Message:
         return message
 
     def _create_response_json_content(self):
+        content = self.instrument.process_request(json.loads(self.request["value"]))
+        """
         action = self.request.get("action")
         if action == "search":
             query = self.request.get("value")
@@ -99,6 +115,7 @@ class Message:
             content = {"result": answer}
         else:
             content = {"result": f'Error: invalid action "{action}".'}
+        """
         content_encoding = "utf-8"
         response = {
             "content_bytes": self._json_encode(content, content_encoding),
@@ -198,8 +215,6 @@ class Message:
             encoding = self.jsonheader["content-encoding"]
             self.request = self._json_decode(data, encoding)
             print("received request", repr(self.request), "from", self.addr)
-            response = self.instrument.process_request(json.loads(self.request["value"]))
-            set_trace()
         else:
             # Binary or unknown content-type
             self.request = data

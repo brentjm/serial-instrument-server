@@ -1,12 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Class to abstract serial instruments. The class maintains a set of current
-instrument values when possible to service requests rapidly. The method
-"_update_data" must be overloaded for each instrument based on the instrument
-manual.  The serial instrument also provides a username and password such that
-the instrument can be acquired and secured for a user and provides detailed
-logging, thus aiding in GMP compliance.
+Module contains class that abstracts serial instruments.
 
 Methods:
     get_PV - get present value from the instrument/sensor
@@ -25,15 +20,19 @@ logger = logging.getLogger(__name__)
 from pdb import set_trace
 
 class SerialInstrument(object):
-    """Class to receive socket commands and send to serial device,
-    and read serial device and send to socket. Class also maintains
-    current user and password.
-    Socket requests should be of form:
+    """Base class to abstract serial instruments. The class provides user login
+    by maintaing class attributes "user" and "password".  Class provides
+    detailed logging for assisting GMP compliance.  Logging configuration is
+    determined by the logger configuration YAML file. Requests sent to the
+    instrument ("process_request" entry point) are expected to be the following
+    format:
         {
             "user": user_name,
             "password": password,
             "command": {"name": command_name, "parameters": {dict_of_params}}
         }
+    The "_update_data" method must be overloaded for inhereting classes.
+    Additional methods are accessible from the "_execture_command" method.
     """
     def  __init__(self, port="/dev/ttyUSB0"):
         """Start logging, connect instrument, and initialize the
@@ -134,6 +133,7 @@ class SerialInstrument(object):
     def _login(self, user_name, password):
         self._user = user_name
         self._password = password
+        set_trace()
         logger.info("logged in user", user_name)
         return {"success": "logged in user"}
 
@@ -211,14 +211,13 @@ class SerialInstrument(object):
         if response["status"] == "error":
             return response
 
-        set_trace()
         response = self._parse_request(request)
         if response["status"] == "error":
             return response
 
         command_name = response["value"]["command_name"]
         parameters = response["value"]["parameters"]
-        
+
         if command_name == "login":
             response = self._login(request["user"], request["password"])
         elif command_name == "logout":
@@ -227,6 +226,8 @@ class SerialInstrument(object):
             response = self._get_data(request["command"])
         else:
             response = self._execute_command(command_name, parameters)
+
+        return response
 
     def _run(self):
         """Run a continuous loop.
